@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Weeknd Discography</title>
+    <link
+      rel="stylesheet"
+      rel="icon" href="https://cdn-icons-png.flaticon.com/512/5339/5339155.png"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        height: 100dvh;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        background-color: #e6f4ff;
+      }
+
+      header {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+      }
+
+      header img {
+        width: 400px;
+        height: auto;
+        display: block;
+      }
+
+      .album-card {
+        margin-bottom: 30px;
+        transition: transform 0.2s;
+        width: fit-content;
+        height: auto;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn:hover {
+        background-color: black;
+        border-color: black;
+        transition: 0.5s;
+      }
+
+      .album-card:hover {
+        transform: scale(1.05);
+        background: rgba(50, 122, 255, 0.2);
+      }
+
+      .album-cover {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .modal-body {
+        background-color: #e6f1ff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .list-group-item {
+        cursor: pointer;
+        background-color: #e6f1ff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .list-group-item:hover {
+        background: rgba(50, 122, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://www.pngall.com/wp-content/uploads/5/The-Weeknd-Logo-PNG-Image.png"
+        alt="The Weeknd Logo"
+      />
+    </header>
+
+    <div class="container mt-5">
+      <div class="row" id="albums"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="songModal"
+      tabindex="-1"
+      aria-labelledby="songModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="songModalLabel">Songs</h5>
+             
+
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+           
+
+          <div class="modal-body">
+            <ul class="list-group" id="song-list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+     
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      const albums = [
+        {
+          title: "Kiss Land",
+          cover:
+            "https://monkeybuzz.com.br/wp-content/uploads/2013/09/the-weeknd-kiss-land-cover.jpg",
+          songs: [
+            {
+              title: "Professional",
+              url: "https://youtu.be/tcLr-GIJQfI?si=mfh9-2a6Kfb3n_NL",
+            },
+            {
+              title: "The Town",
+              url: "https://youtu.be/c7GkZd7T3tk?si=cDkiYSACMfwvGyCw",
+            },
+            {
+              title: "Adaptation",
+              url: "https://youtu.be/pfnnmwLR8vY?si=HsFc-In2IJiM5SaM",
+            },
+            {
+              title: "Love in the Sky",
+              url: "https://youtu.be/AU3D8Yfzlxs?si=Mv0fs7lHlULTWBPb",
+            },
+            {
+              title: "Belong to the World",
+              url: "https://youtu.be/WnO7Xq18ed0?si=wC5pIqQIzq_Hssgb",
+            },
+            {
+              title: "Wanderlust",
+              url: "https://youtu.be/kygPUxOs03c?si=DBGPcX9unH1fUMkY",
+            },
+            {
+              title: "Kiss Land",
+              url: "https://youtu.be/plRha7E_2y4?si=CbyFfgz99KCZnZX-",
+            },
+            {
+              title: "Pretty",
+              url: "https://youtu.be/S9Fm5YdjWC4?si=pRJLWGYOG1m4QCEh",
+            },
+            {
+              title: "Tears in the Rain",
+              url: "https://youtu.be/XpR58x0yBl4?si=y0_EgC8dH1mSy91l",
+            },
+          ],
+        },
+        {
+          title: "Beauty Behind the Madness",
+          cover:
+            "https://m.media-amazon.com/images/I/61M-vA+CPrL._AC_SL1500_.jpg",
+          songs: [
+            {
+              title: "Real Life",
+              url: "https://youtu.be/EjlLdjzE7dg?si=YiejgyxoHYDRay8p",
+            },
+            {
+              title: "Losers",
+              url: "https://youtu.be/xNKOrBA9Sp0?si=3mmpBtch4xenjVvf",
+            },
+            {
+              title: "Tell Your Friends",
+              url: "https://youtu.be/ZpVFxl3WV3U?si=WFW7185B6oQv4pH6",
+            },
+            {
+              title: "Often",
+              url: "https://youtu.be/YY2ng9SjCTo?si=leGHRjy0bi_mEVZj",
+            },
+            {
+              title: "The Hills",
+              url: "https://youtu.be/GfiJowcJiVw?si=KV12M2To128xKejD",
+            },
+            {
+              title: "Acquainted",
+              url: "https://youtu.be/1mOGF169Eno?si=WQSds_15wuBBFcAf",
+            },
+            {
+              title: "Can’t Feel My Face",
+              url: "https://youtu.be/ricvj03PHSU?si=ZHDu9KzDHO7eOU3Z",
+            },
+            {
+              title: "Shameless",
+              url: "https://youtu.be/polycpBREYA?si=mbI3LKtwMSS1c1l-",
+            },
+            {
+              title: "Earned It",
+              url: "https://youtu.be/OZ3YLkPuk-U?si=muDgstMCcXS3-iTQ",
+            },
+            {
+              title: "In the Night",
+              url: "https://youtu.be/GliLQ3CnTK8?si=6rlhJMLytlyi0Ftj",
+            },
+            {
+              title: "As You Are",
+              url: "https://youtu.be/8CWy_-afIpY?si=IJ-Ed8HKpNS5Zv9l",
+            },
+            {
+              title: "Dark Times",
+              url: "https://youtu.be/E3qtZDKAWk0?si=h3tO7RPW0zJiNon9",
+            },
+            {
+              title: "Prisoner",
+              url: "https://youtu.be/x0bRHmTQEsE?si=RwwwfYRCaoPh_ZMV",
+            },
+            {
+              title: "Angel",
+              url: "https://youtu.be/QAAOynFujNw?si=7KFdSJHgPKDK7eNf",
+            },
+          ],
+        },
+        {
+          title: "Starboy",
+          cover:
+            "https://m.media-amazon.com/images/I/814htMhuuML._AC_SL1400_.jpg",
+          songs: [
+            {
+              title: "Starboy",
+              url: "https://youtu.be/3_g2un5M350?si=JRHW0wrbwYnT-z-b",
+            },
+            {
+              title: "Party Monster",
+              url: "https://youtu.be/17c7kDMG_mU?si=qYp_AJBR1RAI1Bzu",
+            },
+            {
+              title: "False Alarm",
+              url: "https://youtu.be/jBhbgZYz7pI?si=9sGcqDlky2M5AIgh",
+            },
+            {
+              title: "Reminder",
+              url: "https://youtu.be/a40tAP5MC6M?si=MIY2-zsq5TherKEy",
+            },
+            {
+              title: "Rockin",
+              url: "https://youtu.be/BCvmAySCnLk?si=NlH8CJyzsMbsqXxx",
+            },
+            {
+              title: "Secrets",
+              url: "https://youtu.be/2QcSvOSXTBc?si=k6lrLOCMDZNIeFyY",
+            },
+            {
+              title: "True Colors",
+              url: "https://youtu.be/3Ox2AWEFhjQ?si=oUKNg3k3zuPCCUOA",
+            },
+            {
+              title: "Stargirl Interlude",
+              url: "https://youtu.be/3Ox2AWEFhjQ?si=Kz_UCk-03dEMyJPo",
+            },
+            {
+              title: "Sidewalks",
+              url: "https://youtu.be/U2TPS-9oMtc?si=PbEeG1buvjI9y7g0",
+            },
+            {
+              title: "Six Feet Under",
+              url: "https://youtu.be/Jt5nPuMgKA8?si=xjdEtqq8PWwwV9H9",
+            },
+            {
+              title: "Love to Lay",
+              url: "https://youtu.be/a1PkVEHV-w8?si=8H0_GpH1-pnHRTeu",
+            },
+            {
+              title: "A Lonely Night",
+              url: "https://youtu.be/atGlHRi0n4A?si=7Z3eck5AMbBWILHs",
+            },
+            {
+              title: "Attention",
+              url: "https://youtu.be/RPCqZssID78?si=9TtfYALeX_4RSzik",
+            },
+            {
+              title: "Ordinary Life",
+              url: "https://youtu.be/tX2ncrjdZ3o?si=HiQkr-GG9ud78ldj",
+            },
+            {
+              title: "Nothing Without You",
+              url: "https://youtu.be/1ExndLNGnmY?si=Qu-PnuxKOByblZaP",
+            },
+            {
+              title: "All I Know",
+              url: "https://youtu.be/sfvFAqzIGh8?si=mwW6-JP8KFgSwrc1",
+            },
+            {
+              title: "Die for You",
+              url: "https://youtu.be/sfvFAqzIGh8?si=JhoYr3W_t_K1zTQ2",
+            },
+            {
+              title: "I Feel It Coming",
+              url: "https://youtu.be/qPRNIHxLhmc?si=U8Vr2iHzcC5N40BI",
+            },
+          ],
+        },
+        {
+          title: "My Dear Melancholy",
+          cover:
+            "https://m.media-amazon.com/images/I/818RSApG0PL._AC_SL1400_.jpg",
+          songs: [
+            {
+              title: "Call Out My Name",
+              url: "https://youtu.be/rsEne1ZiQrk?si=FHNlBN8vQUKLV1Jl",
+            },
+            {
+              title: "Try Me",
+              url: "https://youtu.be/y08R20KflNM?si=kjF8_i2aao1mM65S",
+            },
+            {
+              title: "Wasted Times",
+              url: "https://youtu.be/R0rKB_bsUNg?si=U5GxDF2TEr5AVTJV",
+            },
+            {
+              title: "I Was Never There",
+              url: "https://youtu.be/OlStmta0Vh4?si=utSz7qOnf56qxyD8",
+            },
+            {
+              title: "Hurt You",
+              url: "https://youtu.be/wKDU5pXhf5o?si=6euE2Mj8UR5sJ5aB",
+            },
+            {
+              title: "Privilege",
+              url: "https://youtu.be/JcVDXHeD59c?si=sHkILK9PihwTaUvu",
+            },
+          ],
+        },
+        {
+          title: "After Hours",
+          cover:
+            "https://m.media-amazon.com/images/I/813XseYNw1L._AC_SX569_.jpg",
+          songs: [
+            {
+              title: "Alone Again",
+              url: "https://youtu.be/i8r4zJC1i70?si=Bx2x7HYmGTHbl3F2",
+            },
+            {
+              title: "Too Late",
+              url: "https://youtu.be/r-xaK0LWTZ4?si=3CC-D5yE0UShBoPV",
+            },
+            {
+              title: "Hardest to Love",
+              url: "https://youtu.be/AnS96xdZ_7o?si=NFKtpZE1oAuAYZby",
+            },
+            {
+              title: "Scared to Live",
+              url: "https://youtu.be/U7yCEqKSs0U?si=WOg6vem367kCdZDg",
+            },
+            {
+              title: "Snowchild",
+              url: "https://youtu.be/oju5I2CXt_Y?si=4ltwgPLvVIheHkm8",
+            },
+            {
+              title: "Escape from LA",
+              url: "https://youtu.be/lgNlFmsn4c8?si=fpI4MHxAWqjX4KU0",
+            },
+            {
+              title: "Heartless",
+              url: "https://youtu.be/rbb-_YU2S4c?si=ojt31dRHbEbu6reR",
+            },
+            {
+              title: "Faith",
+              url: "https://youtu.be/wXjNtjKXepo?si=61vS470hFQ6oMaUc",
+            },
+            {
+              title: "Blinding Lights",
+              url: "https://youtu.be/2ru92T7Y5z0?si=ABMqhz06Gevlc682",
+            },
+            {
+              title: "In Your Eyes",
+              url: "https://youtu.be/yRVotpLaCD4?si=6ISnjzN75PagO5So",
+            },
+            {
+              title: "Save Your Tears",
+              url: "https://youtu.be/RmYCOm4ehKs?si=KTfkeptG4A7YvXnQ",
+            },
+            {
+              title: "Repeat After Me (Interlude)",
+              url: "https://youtu.be/2ZvfcF5R62c?si=W_yMk8SIaoRZahhu",
+            },
+            {
+              title: "After Hours",
+              url: "https://youtu.be/WxYgXmZ9xh8?si=mpG1lsNNQaJI1zvr",
+            },
+            {
+              title: "Until I Bleed Out",
+              url: "https://youtu.be/N2OCkGRRDQ4?si=ESfaImOx1qh3utUu",
+            },
+          ],
+        },
+        {
+          title: "Dawn FM",
+          cover: "https://m.media-amazon.com/images/I/517md41TeCL.jpg",
+          songs: [
+            {
+              title: "Dawn FM",
+              url: "https://youtu.be/_Tn_I4GVwxg?si=RnFKbOwJgCAb9xDi",
+            },
+            {
+              title: "Gasoline",
+              url: "https://youtu.be/_Tn_I4GVwxg?si=RnFKbOwJgCAb9xDi",
+            },
+            {
+              title: "How Do I Make You Love Me?",
+              url: "https://youtu.be/79A63K_reig?si=2ZFsNt39IqOo7An-",
+            },
+            {
+              title: "Take My Breath",
+              url: "https://youtu.be/-ZuS0p2qRYo?si=y56kLEbdixGA-CpC",
+            },
+            {
+              title: "Sacrifice",
+              url: "https://youtu.be/gpRxyIPqVDw?si=KbYzaYlWjb_GTofw",
+            },
+            {
+              title: "A Tale by Quincy",
+              url: "https://youtu.be/XyzMNRxC8CM?si=BCv4nnWOYSg8EpPK",
+            },
+            {
+              title: "Out of Time",
+              url: "https://youtu.be/2yqYAsUpdSc?si=l-aRkuanaZJfQEF9",
+            },
+            {
+              title: "Here We Go... Again",
+              url: "https://youtu.be/NubdUxGGYMQ?si=Ux0aY2u9fC3sGDU1",
+            },
+            {
+              title: "Best Friends",
+              url: "https://youtu.be/8PL4q4UBfvo?si=Lq65EQRsfT9fY7oq",
+            },
+            {
+              title: "Is There Someone Else?",
+              url: "https://youtu.be/QgMYdDKVkrw?si=VWR7jsyPLA9A6AYG",
+            },
+            {
+              title: "Starry Eyes",
+              url: "https://youtu.be/tZfN-yO96MM?si=XujMu3fL3YWB4lKq",
+            },
+            {
+              title: "Every Angel is Terrifying",
+              url: "https://youtu.be/Nwb42SedlU8?si=yd98ivmVeATh2UKE",
+            },
+            {
+              title: "Don’t Break My Heart",
+              url: "https://youtu.be/v1WjXOglg40?si=0F1z0jkh5yCNKuVC",
+            },
+            {
+              title: "I Heard You’re Married",
+              url: "https://youtu.be/sgHZfob1h18?si=FGW9efa5ouNplPCy",
+            },
+            {
+              title: "Less Than Zero",
+              url: "https://youtu.be/JVQxUFuvLSg?si=blB4DzrxLoDFUZn3",
+            },
+            {
+              title: "Phantom Regret by Jim",
+              url: "https://youtu.be/xulynscFILE?si=aEr-vTRdZffe8uys",
+            },
+          ],
+        },
+       
+      ];
+
+      const albumContainer = document.getElementById("albums");
+      const songList = document.getElementById("song-list");
+
+      albums.forEach((album) => {
+        const albumCol = document.createElement("div");
+        albumCol.className = "col-md-4";
+        albumCol.innerHTML = `
+     <div class="card album-card">
+       <img src="${album.cover}" class="card-img-top album-cover" alt="${album.title}">
+       <div class="card-body">
+         <h5 class="card-title">${album.title}</h5>
+         <button class="btn btn-primary" onclick="showSongs('${album.title}')">Ver Músicas</button>
+       </div>
+     </div>
+   `;
+        albumContainer.appendChild(albumCol);
+      });
+
+      function showSongs(albumTitle) {
+        const selectedAlbum = albums.find(
+          (album) => album.title === albumTitle
+        );
+        songList.innerHTML = "";
+        selectedAlbum.songs.forEach((song) => {
+          const songItem = document.createElement("li");
+          songItem.className = "list-group-item";
+          songItem.innerText = song.title;
+          songItem.onclick = () => window.open(song.url, "_blank");
+          songList.appendChild(songItem);
+        });
+        $("#songModal").modal("show");
+      }
+    </script>
+  <footer class="text-center">
+  <div> du bist die beste
+  </div>
+  <div> von Samu</div>
+</footer> 
+  </body>
+</html>
+
+
+
+
